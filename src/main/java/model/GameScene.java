@@ -28,6 +28,7 @@ public class GameScene extends Subject {
 
     public GameScene(){
         this.gameObjects = new ArrayList<>();
+        this.networkManager = NetworkManager.getInstance();
         init();
     }
 

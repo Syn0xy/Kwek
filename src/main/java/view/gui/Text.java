@@ -12,9 +12,9 @@ public class Text extends GUIComponent {
 
     private static final int DEFAULT_FONT_SIZE = 20;
 
-    private static final TextHorizontalAlignment DEFAULT_TEXT_ANCHOR_X = TextHorizontalAlignment.LEFT;
+    private static final HorizontalAlignment DEFAULT_TEXT_ANCHOR_X = HorizontalAlignment.CENTER;
 
-    private static final TextVerticalAlignment DEFAULT_TEXT_ANCHOR_Y = TextVerticalAlignment.UPPER;
+    private static final VerticalAlignment DEFAULT_TEXT_ANCHOR_Y = VerticalAlignment.MIDDLE;
 
     private String fontName;
 
@@ -22,13 +22,13 @@ public class Text extends GUIComponent {
 
     private int fontSize;
 
-    protected TextHorizontalAlignment horizontalAlignment;
+    protected HorizontalAlignment horizontalAlignment;
     
-    protected TextVerticalAlignment verticalAlignment;
+    protected VerticalAlignment verticalAlignment;
 
     private String text;
 
-    public Text(String text, TextHorizontalAlignment horizontalAlignment, TextVerticalAlignment verticalAlignment){
+    public Text(String text, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment){
         this.fontName = DEFAULT_FONT;
         this.fontStyle = DEFAULT_FONT_STYLE;
         this.fontSize = DEFAULT_FONT_SIZE;
@@ -57,11 +57,11 @@ public class Text extends GUIComponent {
         this.fontSize = size;
     }
 
-    public void setHorizontalAlignment(TextHorizontalAlignment horizontalAlignment) {
+    public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
         this.horizontalAlignment = horizontalAlignment;
     }
 
-    public void setVerticalAlignment(TextVerticalAlignment verticalAlignment) {
+    public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
         this.verticalAlignment = verticalAlignment;
     }
 
@@ -94,6 +94,7 @@ public class Text extends GUIComponent {
         }
         
         graphics.drawString(text, px, py);
+        super.paint(graphics, container);
     }
 
 }

@@ -1,6 +1,6 @@
 package view.gui;
 
-public enum TextHorizontalAlignment {
+public enum HorizontalAlignment {
     LEFT,
     CENTER,
     RIGHT

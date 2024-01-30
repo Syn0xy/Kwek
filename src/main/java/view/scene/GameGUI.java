@@ -18,6 +18,7 @@ public class GameGUI extends GUI {
         super(container);
         this.gameScene = gameScene;
         this.networkManager = gameScene.getNetworkManager();
+        init();
     }
 
     @Override
@@ -26,24 +27,8 @@ public class GameGUI extends GUI {
             new MenuScene(this),
             new ServerListScene(this, networkManager),
             new ServerCreateScene(this, networkManager),
-            new GameCanvas(gameScene)
+            new GameCanvas(this, gameScene)
         };
-    }
-
-    @Override
-    protected void init() {
-        
-        // Button exitButton = new Button("Back", () -> {
-        //     setMenuScene();
-        // });
-
-        // exitButton.setHorizontalAlignment(TextHorizontalAlignment.CENTER);
-        // exitButton.setVerticalAlignment(TextVerticalAlignment.MIDDLE);
-        // exitButton.setBackgroundColor(Color.WHITE);
-        // exitButton.setColor(Color.BLACK);
-        // exitButton.setFill(true);
-
-        // addComponent(exitButton);
     }
 
 }

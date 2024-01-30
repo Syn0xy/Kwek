@@ -3,13 +3,12 @@ package view.gui;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-import model.input.Input;
+import javax.swing.JPanel;
 
-public abstract class GUI extends GUIContainer implements Scene {
+public abstract class GUI extends JPanel implements Scene, MouseListener, MouseMotionListener {
 
     private static final String SCENE_INDEX_OUT_OF_BOUNDS = "L'indice de la scene n'est pas valide: ";
 
@@ -21,14 +20,7 @@ public abstract class GUI extends GUIContainer implements Scene {
     
     public GUI(Container container){
         this.container = container;
-        this.scenes = getScenes();
         this.currentScene = 0;
-        container.addKeyListener(Input.getInstance());
-        container.addMouseListener(Input.getInstance());
-        container.addMouseMotionListener(Input.getInstance());
-        setSize(container.getWidth(), container.getHeight());
-        setScene(currentScene);
-        init();
     }
 
     public int getWidth() {
@@ -39,7 +31,13 @@ public abstract class GUI extends GUIContainer implements Scene {
         return container.getHeight();
     }
 
-    protected abstract void init();
+    protected void init(){
+        this.scenes = getScenes();
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        setSize(container.getWidth(), container.getHeight());
+        setScene(currentScene);
+    }
 
     public void mousePressed(int button, int x, int y){}
     public void mouseClicked(int button, int x, int y){}
@@ -50,7 +48,7 @@ public abstract class GUI extends GUIContainer implements Scene {
     public void mouseMoved(int x, int y){}
 
     public final void paint(Graphics g) {
-        scenes[currentScene].paint(g, this);
+        scenes[currentScene].paint(g, new GUIContainer(getWidth(), getHeight()));
     }
     
     public void setScene(int sceneIndex){
@@ -61,48 +59,26 @@ public abstract class GUI extends GUIContainer implements Scene {
             throw new IndexOutOfBoundsException(SCENE_INDEX_OUT_OF_BOUNDS + sceneIndex);
         }
     }
-
+    
     private boolean isValidSceneIndex(int sceneIndex){
         return sceneIndex >= 0 && sceneIndex < scenes.length;
     }
 
-    // private boolean clickComponents(int mx, int my){
-    //     GUIComponent hover = hoverComponents(mx, my);
-    //     boolean isNotNull = hover != null;
-        
-    //     if(isNotNull && hover instanceof Button){
-    //         return ((Button)hover).click(mx, my);
-    //     }
+    private boolean clickComponents(int mx, int my){
+        return scenes[currentScene].clickComponents(mx, my);
+    }
 
-    //     return isNotNull;
-    // }
-
-    // private GUIComponent hoverComponents(int mx, int my){
-    //     Stack<GUIComponent> crntComponents = new Stack<>();
-    //     GUIComponent lastComponent = null;
-        
-    //     for(GUIComponent component : components){
-    //         component.hover = false;
-    //         if(component.isHover(mx, my)){
-    //             crntComponents.add(component);
-    //         }
-    //     }
-        
-    //     if(!crntComponents.isEmpty()){
-    //         lastComponent = crntComponents.lastElement();
-    //         lastComponent.hover = true;
-    //     }
-
-    //     return lastComponent;
-    // }
+    private GUIComponent hoverComponents(int mx, int my){
+        return scenes[currentScene].hoverComponents(mx, my);
+    }
     
     @Override
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        // if(!clickComponents(mx, my)){
-        //     mousePressed(e.getButton(), mx, my);
-        // }
+        if(!clickComponents(mx, my)){
+            mousePressed(e.getButton(), mx, my);
+        }
     }
     
     @Override
@@ -144,7 +120,7 @@ public abstract class GUI extends GUIContainer implements Scene {
     public final void mouseMoved(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        // hoverComponents(mx, my);
+        hoverComponents(mx, my);
         mouseMoved(mx, my);
     }
 }

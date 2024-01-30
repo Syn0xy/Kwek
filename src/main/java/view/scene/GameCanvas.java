@@ -9,20 +9,42 @@ import model.Mesh;
 import model.MeshDistanceComparator;
 import model.Triangle;
 import model.gameobject.Camera;
+import view.gui.Button;
 import view.gui.GUIContainer;
 import view.gui.Panel;
+import view.gui.Scene;
+import view.gui.HorizontalAlignment;
+import view.gui.VerticalAlignment;
 
 public class GameCanvas extends Panel {
 
     private static final Color BACKGROUND_COLOR = Color.BLACK;
+
+    private Scene parentScene;
     
     private Mesh[] meshs;
     
     private Camera currentCamera;
 
-    public GameCanvas(GameScene gameScene){
+    public GameCanvas(Scene parentScene, GameScene gameScene){
+        this.parentScene = parentScene;
         this.meshs = gameScene.getMeshs();
         this.currentCamera = gameScene.getCamera();
+        init();
+    }
+
+    private void init(){
+        Button exitButton = new Button("Back", () -> {
+            parentScene.setScene(0);
+        });
+
+        exitButton.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        exitButton.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        exitButton.setBackgroundColor(Color.WHITE);
+        exitButton.setColor(Color.BLACK);
+        exitButton.setFill(true);
+
+        add(exitButton);
     }
     
     @Override
@@ -41,7 +63,7 @@ public class GameCanvas extends Panel {
         sortMeshs();
         drawMeshs(g);
     }
-
+    
     private void updateMeshs(){
         int width = getWidth();
         int height = getHeight();

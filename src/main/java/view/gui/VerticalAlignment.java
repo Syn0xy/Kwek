@@ -1,6 +1,6 @@
 package view.gui;
 
-public enum TextVerticalAlignment {
+public enum VerticalAlignment {
     UPPER,
     MIDDLE,
     LOWER

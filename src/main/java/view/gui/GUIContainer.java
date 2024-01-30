@@ -75,4 +75,8 @@ public class GUIContainer {
         this.height = height;
     }
     
+    protected boolean isHover(int mx, int my){
+        return mx >= positionx && mx <= positionx + width && my >= positiony && my <= positiony + height;
+    }
+    
 }

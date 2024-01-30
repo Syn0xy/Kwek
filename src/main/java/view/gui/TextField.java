@@ -2,7 +2,7 @@ package view.gui;
 
 public class TextField extends Text {
     
-    public TextField(String text, TextHorizontalAlignment horizontalAlignment, TextVerticalAlignment verticalAlignment){
+    public TextField(String text, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment){
         super(text, horizontalAlignment, verticalAlignment);
     }
 

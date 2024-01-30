@@ -8,9 +8,9 @@ public class Panel extends GUIComponent {
     
     private static final int DEFAULT_POSITION_Y = 0;
 
-    private static final int DEFAULT_WIDTH = 80;
+    private static final int DEFAULT_WIDTH = 400;
     
-    private static final int DEFAULT_HEIGHT = 80;
+    private static final int DEFAULT_HEIGHT = 400;
 
     private static final boolean DEFAULT_FILL = true;
 
@@ -44,14 +44,19 @@ public class Panel extends GUIComponent {
         }else{
             graphics.drawRect(positionx, positiony, width - 1, height - 1);
         }
+        
+        super.paint(graphics, container);
     }
 
     private void organiseComponents(){
         int currentHeight = 0;
-        for(int i = 0; i < components.size(); i++){
-            GUIComponent component = components.get(i);
-            component.setPositiony(currentHeight);
-            currentHeight += component.getHeight();
+        for (GUIComponent component : components) {
+            component.positiony = currentHeight;
+            currentHeight += component.height;
+        }
+        int posy = (positiony + (height - currentHeight) / 2);
+        for (GUIComponent component : components) {
+            component.positiony += posy;
         }
     }
 

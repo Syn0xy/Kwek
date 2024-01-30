@@ -11,7 +11,7 @@ public class Button extends Text {
     
     private static final int DEFAULT_HEIGHT = 60;
 
-    private static final boolean DEFAULT_FILL = false;
+    private static final boolean DEFAULT_FILL = true;
 
     private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 

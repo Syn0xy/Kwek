@@ -1,11 +1,5 @@
 package view.scene;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import network.NetworkManager;
 import network.dao.Server;
 import view.gui.Button;
@@ -34,10 +28,8 @@ public class ServerListScene extends Panel {
 
     private void init(){
         serversListPanel = new Panel();
-        // serversListPanel.setLayout(new BoxLayout(serversListPanel, BoxLayout.Y_AXIS));
         serverSelectedLabel = new Text("Aucun serveur n'est selectionné");
-
-        // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
         refreshServersListPanel();
         add(serverSelectedLabel);
         add(serversListPanel);
@@ -54,7 +46,7 @@ public class ServerListScene extends Panel {
         for (int i = 0; i < servers.length; i++) {
             serversListPanel.add(getServerSelectButton(servers[i]));
         }
-        // parentScene.repaint();
+        serverSelected = servers[0];
     }
 
     private GUIComponent getServerSelectButton(Server server){

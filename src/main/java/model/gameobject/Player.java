@@ -15,7 +15,7 @@ public class Player extends Mesh {
 
     @Override
     public void update() {
-        if(Input.getKey(KeyCode.D) || Input.getKey(KeyCode.MOUSE_1)){
+        if(Input.getKey(KeyCode.D)){
             transform.position.x += 0.1;
         }
         if(Input.getKey(KeyCode.Q)){
