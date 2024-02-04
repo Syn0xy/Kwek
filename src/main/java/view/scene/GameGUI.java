@@ -6,7 +6,6 @@ import model.GameScene;
 import network.NetworkManager;
 import view.gui.GUI;
 import view.gui.GUIComponent;
-import view.gui.Panel;
 
 public class GameGUI extends GUI {
 
@@ -23,7 +22,7 @@ public class GameGUI extends GUI {
 
     @Override
     public GUIComponent[] getScenes() {
-        return new Panel[]{
+        return new GUIComponent[]{
             new MenuScene(this),
             new ServerListScene(this, networkManager),
             new ServerCreateScene(this, networkManager),

@@ -60,16 +60,9 @@ public class Button extends Text {
         this.hoverColor = hoverColor;
     }
 
+    @Override
     public void action() {
         action.run();
-    }
-
-    protected boolean click(int mx, int my){
-        if(hover){
-            action();
-            return true;
-        }
-        return false;
     }
 
     @Override

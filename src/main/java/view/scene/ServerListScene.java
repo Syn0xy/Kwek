@@ -1,12 +1,17 @@
 package view.scene;
 
+import java.awt.Color;
+
 import network.NetworkManager;
 import network.dao.Server;
+import view.gui.AxisAlignment;
 import view.gui.Button;
 import view.gui.GUIComponent;
+import view.gui.HorizontalAlignment;
 import view.gui.Panel;
 import view.gui.Scene;
 import view.gui.Text;
+import view.gui.VerticalAlignment;
 
 public class ServerListScene extends Panel {
 
@@ -27,16 +32,28 @@ public class ServerListScene extends Panel {
     }
 
     private void init(){
+        setColor(Color.BLACK);
+        setSize(1000, 500);
+        Panel p = new Panel(getWidth() / 4, getHeight() / 8, getWidth() / 2, getHeight() / 4);
+        Panel buttons = new Panel(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 4);
+        buttons.setAxisAlignment(AxisAlignment.X_AXIS);
+        buttons.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        buttons.setVerticalAlignment(VerticalAlignment.UPPER);
+        p.setColor(Color.WHITE);
+        buttons.setColor(Color.CYAN);
+        
         serversListPanel = new Panel();
+        serversListPanel.setColor(Color.RED);
         serverSelectedLabel = new Text("Aucun serveur n'est selectionné");
         
         refreshServersListPanel();
-        add(serverSelectedLabel);
-        add(serversListPanel);
-        add(getServerCreateButton());
-        add(getJoinButton());
-        add(getReloadButton());
-        add(getBackButton());
+        buttons.add(getServerCreateButton());
+        buttons.add(getJoinButton());
+        buttons.add(getReloadButton());
+        buttons.add(getBackButton());
+        p.add(serversListPanel);
+        p.add(buttons);
+        add(p);
     }
 
     private void refreshServersListPanel(){

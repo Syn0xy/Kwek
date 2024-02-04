@@ -32,7 +32,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void keyPressed(KeyEvent e) {
         KeyCode key = KeyCode.getKey(e.getKeyCode());
         if(key == null){
-            System.err.println(KeyEvent.getKeyText(e.getKeyCode()));
+            System.err.println("Cette touche n'a pas été attribuée: " + KeyEvent.getKeyText(e.getKeyCode()));
             return;
         }
         keysCode.get(key).keyDown();
@@ -42,7 +42,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void keyReleased(KeyEvent e) {
         KeyCode key = KeyCode.getKey(e.getKeyCode());
         if(key == null){
-            System.err.println(KeyEvent.getKeyText(e.getKeyCode()));
+            System.err.println("Cette touche n'a pas été attribuée: " + KeyEvent.getKeyText(e.getKeyCode()));
             return;
         }
         keysCode.get(key).keyUp();

@@ -1,8 +1,14 @@
 package view.scene;
 
+import java.awt.Color;
+
+import view.gui.AxisAlignment;
 import view.gui.Button;
+import view.gui.HorizontalAlignment;
 import view.gui.Panel;
 import view.gui.Scene;
+import view.gui.Text;
+import view.gui.VerticalAlignment;
 
 public class MenuScene extends Panel {
 
@@ -14,24 +20,42 @@ public class MenuScene extends Panel {
     }
 
     private void init(){
-        add(getPlayButton());
-        add(getExitButton());
+        setColor(Color.BLACK);
+        setSize(1000, 500);
+        Panel p = new Panel(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 2);
+        p.setColor(Color.LIGHT_GRAY);
+        p.setAxisAlignment(AxisAlignment.Y_AXIS);
+        p.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        p.setVerticalAlignment(VerticalAlignment.UPPER);
+        p.add(getNameText());
+        p.add(getPlayButton());
+        p.add(getExitButton());
+        add(p);
     }
 
-    protected void setPlayScene(){
-        parentScene.setScene(1);
+    private Text getNameText(){
+        Text text = new Text("League of Losers");
+        text.setColor(Color.BLACK);
+        text.setSize(200, 50);
+        return text;
     }
 
     private Button getPlayButton(){
-        return new Button("Play", () -> {
-            setPlayScene();
+        Button button = new Button("Play", () -> {
+            parentScene.setScene(1);
         });
+        button.setSize(200, 50);
+        button.setBackgroundColor(Color.BLACK);
+        return button;
     }
 
     private Button getExitButton(){
-        return new Button("Exit", () -> {
+        Button button = new Button("Exit", () -> {
             System.exit(0);
         });
+        button.setSize(200, 50);
+        button.setBackgroundColor(Color.BLACK);
+        return button;
     }
 
 }

@@ -35,7 +35,6 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
         this.scenes = getScenes();
         addMouseListener(this);
         addMouseMotionListener(this);
-        setSize(container.getWidth(), container.getHeight());
         setScene(currentScene);
     }
 
@@ -48,7 +47,8 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
     public void mouseMoved(int x, int y){}
 
     public final void paint(Graphics g) {
-        scenes[currentScene].paint(g, new GUIContainer(getWidth(), getHeight()));
+        GUIContainer container = new GUIContainer(getWidth(), getHeight());
+        scenes[currentScene].paint(g, container);
     }
     
     public void setScene(int sceneIndex){
@@ -68,8 +68,11 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
         return scenes[currentScene].clickComponents(mx, my);
     }
 
-    private GUIComponent hoverComponents(int mx, int my){
-        return scenes[currentScene].hoverComponents(mx, my);
+    private void hoverComponent(int mx, int my){
+        GUIComponent hoverComponent = scenes[currentScene].hoverComponents(mx, my);
+        if(hoverComponent != null){
+            hoverComponent.hover = true;
+        }
     }
     
     @Override
@@ -120,7 +123,7 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
     public final void mouseMoved(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        hoverComponents(mx, my);
+        hoverComponent(mx, my);
         mouseMoved(mx, my);
     }
 }

@@ -37,7 +37,7 @@ public class GameView extends View implements Observer {
 
     @Override
     public void update(Subject subj) {
-        update();        
+        update();
     }
 
     @Override
@@ -47,6 +47,7 @@ public class GameView extends View implements Observer {
 
     public void update(){
         repaint();
+        revalidate();
         refreshFrames();
     }
     

@@ -57,16 +57,21 @@ public class Text extends GUIComponent {
         this.fontSize = size;
     }
 
-    public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
+    public void setDefaultHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
         this.horizontalAlignment = horizontalAlignment;
     }
 
-    public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
+    public void setDefaultVerticalAlignment(VerticalAlignment verticalAlignment) {
         this.verticalAlignment = verticalAlignment;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+    
+    @Override
+    protected void action() {
+        return;
     }
     
     @Override
@@ -78,23 +83,23 @@ public class Text extends GUIComponent {
         
         FontMetrics metrics = graphics.getFontMetrics(font);
 
-        int px = container.positionx;
-        int py = container.positiony;
+        int px = positionx;
+        int py = positiony;
 
         switch (horizontalAlignment) {
             case LEFT: break;
-            case CENTER: px += (container.width - metrics.stringWidth(text)) / 2; break;
-            case RIGHT: px += container.width - metrics.stringWidth(text); break;
+            case CENTER: px += (width - metrics.stringWidth(text)) / 2; break;
+            case RIGHT: px += width - metrics.stringWidth(text); break;
         }
 
         switch (verticalAlignment) {
             case UPPER: py += metrics.getAscent(); break;
-            case MIDDLE: py += (container.height - metrics.getHeight()) / 2 + metrics.getAscent(); break;
-            case LOWER: py += container.height - metrics.getAscent() / 2; break;
+            case MIDDLE: py += (height - metrics.getHeight()) / 2 + metrics.getAscent(); break;
+            case LOWER: py += height - metrics.getAscent() / 2; break;
         }
         
         graphics.drawString(text, px, py);
-        super.paint(graphics, container);
+        super.paint(graphics, this);
     }
 
 }

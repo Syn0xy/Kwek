@@ -26,6 +26,10 @@ public class GameCanvas extends Panel {
     
     private Camera currentCamera;
 
+    private int width;
+
+    private int height;
+
     public GameCanvas(Scene parentScene, GameScene gameScene){
         this.parentScene = parentScene;
         this.meshs = gameScene.getMeshs();
@@ -34,6 +38,7 @@ public class GameCanvas extends Panel {
     }
 
     private void init(){
+        setSize(100, 100);
         Button exitButton = new Button("Back", () -> {
             parentScene.setScene(0);
         });
@@ -49,13 +54,15 @@ public class GameCanvas extends Panel {
     
     @Override
     public void paint(Graphics g, GUIContainer container) {
+        width = (getWidth() * container.getWidth()) / 100;
+        height = (getHeight() * container.getHeight()) / 100;
         clearScreen(g);
         draw(g);
     }
 
     private void clearScreen(Graphics g){
         g.setColor(BACKGROUND_COLOR);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, width, height);
     }
 
     private void draw(Graphics g){
@@ -65,8 +72,6 @@ public class GameCanvas extends Panel {
     }
     
     private void updateMeshs(){
-        int width = getWidth();
-        int height = getHeight();
         for(int i = 0; i < meshs.length; i++){
             meshs[i].update(width, height, currentCamera);
         }

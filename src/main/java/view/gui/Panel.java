@@ -8,9 +8,9 @@ public class Panel extends GUIComponent {
     
     private static final int DEFAULT_POSITION_Y = 0;
 
-    private static final int DEFAULT_WIDTH = 400;
+    private static final int DEFAULT_WIDTH = 50;
     
-    private static final int DEFAULT_HEIGHT = 400;
+    private static final int DEFAULT_HEIGHT = 50;
 
     private static final boolean DEFAULT_FILL = true;
 
@@ -33,10 +33,14 @@ public class Panel extends GUIComponent {
     public void setFill(boolean fill) {
         this.fill = fill;
     }
+    
+    @Override
+    protected void action() {
+        return;
+    }
 
     @Override
     protected void paint(Graphics graphics, GUIContainer container) {
-        organiseComponents();
         graphics.setColor(color);
         
         if(fill){
@@ -45,19 +49,7 @@ public class Panel extends GUIComponent {
             graphics.drawRect(positionx, positiony, width - 1, height - 1);
         }
         
-        super.paint(graphics, container);
-    }
-
-    private void organiseComponents(){
-        int currentHeight = 0;
-        for (GUIComponent component : components) {
-            component.positiony = currentHeight;
-            currentHeight += component.height;
-        }
-        int posy = (positiony + (height - currentHeight) / 2);
-        for (GUIComponent component : components) {
-            component.positiony += posy;
-        }
+        super.paint(graphics, this);
     }
 
 }
