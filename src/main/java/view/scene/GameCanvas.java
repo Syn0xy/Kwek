@@ -9,6 +9,7 @@ import model.Mesh;
 import model.MeshDistanceComparator;
 import model.Triangle;
 import model.gameobject.Camera;
+import view.gui.AxisAlignment;
 import view.gui.Button;
 import view.gui.GUIContainer;
 import view.gui.Panel;
@@ -38,13 +39,17 @@ public class GameCanvas extends Panel {
     }
 
     private void init(){
-        setSize(100, 100);
+        setColor(new Color(0, 0, 0, 0));
+        setAxisAlignment(AxisAlignment.X_AXIS);
+        setHorizontalAlignment(HorizontalAlignment.RIGHT);
+        setVerticalAlignment(VerticalAlignment.LOWER);
+        
         Button exitButton = new Button("Back", () -> {
             parentScene.setScene(0);
         });
 
-        exitButton.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        exitButton.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        exitButton.setTextHorizontalAlignment(HorizontalAlignment.CENTER);
+        exitButton.setTextVerticalAlignment(VerticalAlignment.MIDDLE);
         exitButton.setBackgroundColor(Color.WHITE);
         exitButton.setColor(Color.BLACK);
         exitButton.setFill(true);
@@ -54,10 +59,11 @@ public class GameCanvas extends Panel {
     
     @Override
     public void paint(Graphics g, GUIContainer container) {
-        width = (getWidth() * container.getWidth()) / 100;
-        height = (getHeight() * container.getHeight()) / 100;
+        width = getWidth();
+        height = getHeight();
         clearScreen(g);
         draw(g);
+        super.paint(g, this);
     }
 
     private void clearScreen(Graphics g){

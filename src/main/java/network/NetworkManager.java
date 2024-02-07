@@ -20,6 +20,9 @@ public class NetworkManager {
 
     private NetworkManager(){
         this.entities = new ArrayList<>();
+
+        entities.add(new NetworkEntity(2, "2 secondes !"));
+        entities.add(new NetworkEntity(5, "5 secondes !"));
     }
 
     public void update(){

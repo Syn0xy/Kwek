@@ -1,6 +1,5 @@
-package model;
+package model.gameobject;
 
-import model.gameobject.Camera;
 import model.geometric.Transform;
 import model.geometric.Vector3;
 
@@ -21,6 +20,8 @@ public class FollowingCamera extends Camera {
         transform.position.x = follower.position.x + offset.x;
         transform.position.y = follower.position.y + offset.y;
         transform.position.z = follower.position.z + offset.z;
+        
+        transform.rotation.y = follower.rotation.y;
     }
     
 }

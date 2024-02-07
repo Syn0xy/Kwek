@@ -27,6 +27,12 @@ public class Player extends Mesh {
         if(Input.getKey(KeyCode.S)){
             transform.position.z -= 0.1;
         }
+        if(Input.getKey(KeyCode.E)){
+            transform.rotation.y += 2;
+        }
+        if(Input.getKey(KeyCode.A)){
+            transform.rotation.y -= 2;
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 
@@ -30,11 +31,14 @@ public abstract class View extends JFrame {
     
     public abstract Point position();
 
+    public abstract Image icon();
+
     public View(int width, int height){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
         setTitle(title());
         setLocation(position());
+        setIconImage(icon());
         setVisible(true);
     }
 

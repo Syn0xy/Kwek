@@ -1,6 +1,5 @@
 package view.gui;
 
-import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,25 +9,20 @@ import javax.swing.JPanel;
 
 public abstract class GUI extends JPanel implements Scene, MouseListener, MouseMotionListener {
 
-    private static final String SCENE_INDEX_OUT_OF_BOUNDS = "L'indice de la scene n'est pas valide: ";
+    protected static final int LEFT_BUTTON = 1;
 
-    private Container container;
+    protected static final int MIDDLE_BUTTON = 2;
+
+    protected static final int RIGHT_BUTTON = 3;
+
+    private static final String SCENE_INDEX_OUT_OF_BOUNDS = "L'indice de la scene n'est pas valide: ";
     
     private GUIComponent[] scenes;
 
     private int currentScene;
     
-    public GUI(Container container){
-        this.container = container;
+    protected GUI(){
         this.currentScene = 0;
-    }
-
-    public int getWidth() {
-        return container.getWidth();
-    }
-
-    public int getHeight() {
-        return container.getHeight();
     }
 
     protected void init(){
@@ -47,6 +41,9 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
     public void mouseMoved(int x, int y){}
 
     public final void paint(Graphics g) {
+        for(GUIComponent component : scenes){
+            component.setSize(getWidth(), getHeight());
+        }
         GUIContainer container = new GUIContainer(getWidth(), getHeight());
         scenes[currentScene].paint(g, container);
     }
@@ -54,7 +51,7 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
     public void setScene(int sceneIndex){
         if(isValidSceneIndex(sceneIndex)){
             currentScene = sceneIndex;
-            container.repaint();
+            repaint();
         }else{
             throw new IndexOutOfBoundsException(SCENE_INDEX_OUT_OF_BOUNDS + sceneIndex);
         }
@@ -79,7 +76,7 @@ public abstract class GUI extends JPanel implements Scene, MouseListener, MouseM
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        if(!clickComponents(mx, my)){
+        if(e.getButton() == LEFT_BUTTON && !clickComponents(mx, my)){
             mousePressed(e.getButton(), mx, my);
         }
     }

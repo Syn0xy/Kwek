@@ -12,9 +12,9 @@ public class Text extends GUIComponent {
 
     private static final int DEFAULT_FONT_SIZE = 20;
 
-    private static final HorizontalAlignment DEFAULT_TEXT_ANCHOR_X = HorizontalAlignment.CENTER;
+    private static final HorizontalAlignment DEFAULT_TEXT_ALIGNMENT_X = HorizontalAlignment.CENTER;
 
-    private static final VerticalAlignment DEFAULT_TEXT_ANCHOR_Y = VerticalAlignment.MIDDLE;
+    private static final VerticalAlignment DEFAULT_TEXT_ALIGNMENT_Y = VerticalAlignment.MIDDLE;
 
     private String fontName;
 
@@ -22,23 +22,23 @@ public class Text extends GUIComponent {
 
     private int fontSize;
 
-    protected HorizontalAlignment horizontalAlignment;
+    protected HorizontalAlignment textHorizontalAlignment;
     
-    protected VerticalAlignment verticalAlignment;
+    protected VerticalAlignment textVerticalAlignment;
 
     private String text;
 
-    public Text(String text, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment){
+    public Text(String text, HorizontalAlignment textHorizontalAlignment, VerticalAlignment textVerticalAlignment){
         this.fontName = DEFAULT_FONT;
         this.fontStyle = DEFAULT_FONT_STYLE;
         this.fontSize = DEFAULT_FONT_SIZE;
-        this.horizontalAlignment = horizontalAlignment;
-        this.verticalAlignment = verticalAlignment;
+        this.textHorizontalAlignment = textHorizontalAlignment;
+        this.textVerticalAlignment = textVerticalAlignment;
         this.text = text;
     }
 
     public Text(String text){
-        this(text, DEFAULT_TEXT_ANCHOR_X, DEFAULT_TEXT_ANCHOR_Y);
+        this(text, DEFAULT_TEXT_ALIGNMENT_X, DEFAULT_TEXT_ALIGNMENT_Y);
     }
 
     public String getText() {
@@ -57,12 +57,12 @@ public class Text extends GUIComponent {
         this.fontSize = size;
     }
 
-    public void setDefaultHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
-        this.horizontalAlignment = horizontalAlignment;
+    public void setTextHorizontalAlignment(HorizontalAlignment textHorizontalAlignment) {
+        this.textHorizontalAlignment = textHorizontalAlignment;
     }
 
-    public void setDefaultVerticalAlignment(VerticalAlignment verticalAlignment) {
-        this.verticalAlignment = verticalAlignment;
+    public void setTextVerticalAlignment(VerticalAlignment textVerticalAlignment) {
+        this.textVerticalAlignment = textVerticalAlignment;
     }
 
     public void setText(String text) {
@@ -86,13 +86,13 @@ public class Text extends GUIComponent {
         int px = positionx;
         int py = positiony;
 
-        switch (horizontalAlignment) {
+        switch (textHorizontalAlignment) {
             case LEFT: break;
             case CENTER: px += (width - metrics.stringWidth(text)) / 2; break;
             case RIGHT: px += width - metrics.stringWidth(text); break;
         }
 
-        switch (verticalAlignment) {
+        switch (textVerticalAlignment) {
             case UPPER: py += metrics.getAscent(); break;
             case MIDDLE: py += (height - metrics.getHeight()) / 2 + metrics.getAscent(); break;
             case LOWER: py += height - metrics.getAscent() / 2; break;

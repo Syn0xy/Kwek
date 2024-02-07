@@ -32,46 +32,72 @@ public class ServerListScene extends Panel {
     }
 
     private void init(){
-        setColor(Color.BLACK);
-        setSize(1000, 500);
-        Panel p = new Panel(getWidth() / 4, getHeight() / 8, getWidth() / 2, getHeight() / 4);
-        Panel buttons = new Panel(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 4);
-        buttons.setAxisAlignment(AxisAlignment.X_AXIS);
-        buttons.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        buttons.setVerticalAlignment(VerticalAlignment.UPPER);
-        p.setColor(Color.WHITE);
-        buttons.setColor(Color.CYAN);
-        
+        Panel buttons = new Panel(500, 200);
         serversListPanel = new Panel();
+        serverSelectedLabel = new Text("");
+        serverSelectedLabel.setTextVerticalAlignment(VerticalAlignment.UPPER);
+        serverSelectedLabel.setHeight(40);
+        
+        buttons.setAxisAlignment(AxisAlignment.X_AXIS);
+        
+        buttons.setColor(Color.LIGHT_GRAY);
         serversListPanel.setColor(Color.RED);
-        serverSelectedLabel = new Text("Aucun serveur n'est selectionné");
+        serverSelectedLabel.setColor(Color.BLUE);
         
         refreshServersListPanel();
         buttons.add(getServerCreateButton());
         buttons.add(getJoinButton());
         buttons.add(getReloadButton());
         buttons.add(getBackButton());
-        p.add(serversListPanel);
-        p.add(buttons);
-        add(p);
+        add(getNameText());
+        add(serverSelectedLabel);
+        add(serversListPanel);
+        add(buttons);
+    }
+
+    private Text getNameText(){
+        Text text = new Text("League of Losers");
+        text.setColor(Color.BLACK);
+        text.setSize(200, 50);
+        return text;
     }
 
     private void refreshServersListPanel(){
         serversListPanel.removeAll();
         Server[] servers = networkManager.getListOfServers();
-        
-        for (int i = 0; i < servers.length; i++) {
-            serversListPanel.add(getServerSelectButton(servers[i]));
+
+        if(servers == null){
+            return;
         }
-        serverSelected = servers[0];
+        
+        int maxSize = 0;
+
+        for (int i = 0; i < servers.length; i++) {
+            GUIComponent crntServerButton = getServerSelectButton(servers[i]);
+            serversListPanel.add(crntServerButton);
+            maxSize += crntServerButton.getHeight();
+        }
+
+        serversListPanel.setHeight(maxSize);
+        refresh();
+    }
+
+    private void refresh(){
+        if(serverSelected != null){
+            serverSelectedLabel.setText("Serveur selectionné: " + serverSelected.getName());
+        }else{
+            serverSelectedLabel.setText("Aucun serveur n'est selectionné");
+        }
     }
 
     private GUIComponent getServerSelectButton(Server server){
         String desc = "id: " + server.getId() + " | name: " + server.getName() + " | currentPlayers: " + server.getCurrentPlayers() + " | maxPlayers: " + server.getMaxPlayers();
         return new Button(desc, () -> {
             serverSelected = server;
-            serverSelectedLabel.setText("Serveur selectionné: " + server.getName());
-        });
+            refresh();
+        }){{
+            setWidth(475);
+        }};
     }
     
     private Button getServerCreateButton(){
@@ -96,6 +122,7 @@ public class ServerListScene extends Panel {
     
     private Button getReloadButton(){
         return new Button("Refresh", () -> {
+            serverSelected = null;
             refreshServersListPanel();
         });
     }

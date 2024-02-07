@@ -3,7 +3,6 @@ package view.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -74,20 +73,66 @@ public abstract class GUIComponent extends GUIContainer {
 
     private void organise(){
         switch (verticalAlignment) {
-            case LOWER: verticalOrganiseAsc(); break;
-            case MIDDLE: break;
-            case UPPER: verticalOrganiseDesc(); break;
+            case LOWER: verticalOrganiseLower(); break;
+            case MIDDLE: verticalOrganiseMiddle(); break;
+            case UPPER: verticalOrganiseUpper(); break;
             default: break;
         }
         switch (horizontalAlignment) {
-            case RIGHT: horizontalOrganiseAsc(); break;
-            case CENTER: break;
-            case LEFT: horizontalOrganiseDesc(); break;
+            case RIGHT: horizontalOrganiseRight(); break;
+            case CENTER: horizontalOrganiseCenter(); break;
+            case LEFT: horizontalOrganiseLeft(); break;
             default: break;
         }
     }
     
-    private void verticalOrganiseAsc(){
+    private void horizontalOrganiseCenter(){
+        int maxSize = 0;
+        
+        for(GUIComponent component : components){
+            maxSize += component.width;
+        }
+
+        int posx = positionx + (width - maxSize) / 2;
+
+        if(axisAlignment == AxisAlignment.Y_AXIS){
+            posx = positionx + width / 2;
+        }
+
+        for(GUIComponent component : components){
+            if(axisAlignment == AxisAlignment.Y_AXIS){
+                component.positionx = posx - component.width / 2;
+            }else{
+                component.positionx = posx;
+                posx += component.width;
+            }
+        }
+    }
+    
+    private void verticalOrganiseMiddle(){
+        int maxSize = 0;
+        
+        for(GUIComponent component : components){
+            maxSize += component.height;
+        }
+
+        int posy = positiony + (height - maxSize) / 2;
+
+        if(axisAlignment == AxisAlignment.X_AXIS){
+            posy = positiony + height / 2;
+        }
+
+        for(GUIComponent component : components){
+            if(axisAlignment == AxisAlignment.X_AXIS){
+                component.positiony = posy - component.height / 2;
+            }else{
+                component.positiony = posy;
+                posy += component.height;
+            }
+        }
+    }
+    
+    private void verticalOrganiseLower(){
         int posy = positiony + height;
 
         ListIterator<GUIComponent> iterator = components.listIterator(components.size());
@@ -102,7 +147,7 @@ public abstract class GUIComponent extends GUIContainer {
         }
     }
     
-    private void verticalOrganiseDesc(){
+    private void verticalOrganiseUpper(){
         int posy = positiony;
 
         for(GUIComponent component : components){
@@ -113,7 +158,7 @@ public abstract class GUIComponent extends GUIContainer {
         }
     }
     
-    private void horizontalOrganiseAsc(){
+    private void horizontalOrganiseRight(){
         int posx = positionx + width;
 
         ListIterator<GUIComponent> iterator = components.listIterator(components.size());
@@ -128,7 +173,7 @@ public abstract class GUIComponent extends GUIContainer {
         }
     }
     
-    private void horizontalOrganiseDesc(){
+    private void horizontalOrganiseLeft(){
         int posx = positionx;
 
         for(GUIComponent component : components){

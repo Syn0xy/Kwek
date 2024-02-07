@@ -13,8 +13,7 @@ public class GameGUI extends GUI {
 
     private NetworkManager networkManager;
 
-    public GameGUI(Container container, GameScene gameScene){
-        super(container);
+    public GameGUI(GameScene gameScene){
         this.gameScene = gameScene;
         this.networkManager = gameScene.getNetworkManager();
         init();
@@ -26,7 +25,8 @@ public class GameGUI extends GUI {
             new MenuScene(this),
             new ServerListScene(this, networkManager),
             new ServerCreateScene(this, networkManager),
-            new GameCanvas(this, gameScene)
+            new GameCanvas(this, gameScene),
+            new SettingsScene(this)
         };
     }
 

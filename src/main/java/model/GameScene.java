@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.gameobject.Camera;
+import model.gameobject.FollowingCamera;
 import model.gameobject.GameObject;
 import model.gameobject.Map;
 import model.gameobject.Player;
@@ -98,6 +99,7 @@ public class GameScene extends Subject {
         for (GameObject gameObject : gameObjects) {
             gameObject.update();
         }
+        networkManager.update();
         Input.update();
         notifyObservers();
     }

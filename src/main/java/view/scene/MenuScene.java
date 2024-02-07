@@ -2,13 +2,10 @@ package view.scene;
 
 import java.awt.Color;
 
-import view.gui.AxisAlignment;
 import view.gui.Button;
-import view.gui.HorizontalAlignment;
 import view.gui.Panel;
 import view.gui.Scene;
 import view.gui.Text;
-import view.gui.VerticalAlignment;
 
 public class MenuScene extends Panel {
 
@@ -22,13 +19,11 @@ public class MenuScene extends Panel {
     private void init(){
         setColor(Color.BLACK);
         setSize(1000, 500);
-        Panel p = new Panel(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 2);
+        Panel p = new Panel(500, 250);
         p.setColor(Color.LIGHT_GRAY);
-        p.setAxisAlignment(AxisAlignment.Y_AXIS);
-        p.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        p.setVerticalAlignment(VerticalAlignment.UPPER);
         p.add(getNameText());
         p.add(getPlayButton());
+        p.add(getSettingsButton());
         p.add(getExitButton());
         add(p);
     }
@@ -43,6 +38,15 @@ public class MenuScene extends Panel {
     private Button getPlayButton(){
         Button button = new Button("Play", () -> {
             parentScene.setScene(1);
+        });
+        button.setSize(200, 50);
+        button.setBackgroundColor(Color.BLACK);
+        return button;
+    }
+
+    private Button getSettingsButton(){
+        Button button = new Button("Settings", () -> {
+            parentScene.setScene(4);
         });
         button.setSize(200, 50);
         button.setBackgroundColor(Color.BLACK);

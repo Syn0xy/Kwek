@@ -48,15 +48,16 @@ public class FileTranslatorOBJ {
                 }
 
                 while(!triangleIndices.isEmpty()){
-                    Integer[] indices = triangleIndices.removeFirst();
+                    Integer[] indices = triangleIndices.remove(0);
                     Vector3 v1 = vectors.get(indices[0]);
                     Vector3 v2 = vectors.get(indices[1]);
                     Vector3 v3 = vectors.get(indices[2]);
-                    triangles.add(new Triangle(transform, v1, v2, v3, new Color(
+                    Color color = new Color(
                         (int)(Math.random() * 255),
                         (int)(Math.random() * 255),
                         (int)(Math.random() * 255)
-                    )));
+                    );
+                    triangles.add(new Triangle(transform, v1, v2, v3, color));
                 }
                 
                 Triangle[] arrayTriangles = triangles.toArray(new Triangle[triangles.size()]);

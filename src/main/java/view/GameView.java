@@ -1,6 +1,11 @@
 package view;
 
+import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import model.GameScene;
 import model.input.Input;
@@ -16,10 +21,12 @@ public class GameView extends View implements Observer {
     
     private static final String TITLE = "League of Losers";
     
+    private static final String ICON_PATH = "res" + File.separator + "icon.png";
+    
     public GameView(GameScene gameScene){
         super(WIDTH, HEIGHT);
         gameScene.attach(this);
-        add(new GameGUI(this, gameScene));
+        add(new GameGUI(gameScene));
         addKeyListener(Input.getInstance());
         addMouseListener(Input.getInstance());
         addMouseMotionListener(Input.getInstance());
@@ -33,6 +40,17 @@ public class GameView extends View implements Observer {
     @Override
     public Point position() {
         return center();
+    }
+
+    @Override
+    public Image icon() {
+        try {
+            File f = new File(ICON_PATH);
+            return ImageIO.read(f);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override
