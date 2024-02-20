@@ -1,7 +1,5 @@
 package view.scene;
 
-import java.awt.Container;
-
 import model.GameScene;
 import network.NetworkManager;
 import view.gui.GUI;

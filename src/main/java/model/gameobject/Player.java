@@ -4,6 +4,7 @@ import model.Mesh;
 import model.geometric.Transform;
 import model.input.Input;
 import model.input.KeyCode;
+import network.SyncTransform;
 
 public class Player extends Mesh {
 
@@ -11,6 +12,7 @@ public class Player extends Mesh {
     
     public Player(Transform transform) {
         super(transform, DEFAULT_MESH_FILE_NAME);
+        new SyncTransform(transform);
     }
 
     @Override

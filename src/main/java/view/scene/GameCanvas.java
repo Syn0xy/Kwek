@@ -9,11 +9,13 @@ import model.Mesh;
 import model.MeshDistanceComparator;
 import model.Triangle;
 import model.gameobject.Camera;
+import network.SyncInteger;
 import view.gui.AxisAlignment;
 import view.gui.Button;
 import view.gui.GUIContainer;
 import view.gui.Panel;
 import view.gui.Scene;
+import view.gui.Text;
 import view.gui.HorizontalAlignment;
 import view.gui.VerticalAlignment;
 
@@ -22,19 +24,25 @@ public class GameCanvas extends Panel {
     private static final Color BACKGROUND_COLOR = Color.BLACK;
 
     private Scene parentScene;
+
+    private int width;
+
+    private int height;
     
     private Mesh[] meshs;
     
     private Camera currentCamera;
 
-    private int width;
+    private SyncInteger teamScore1;
 
-    private int height;
+    private SyncInteger teamScore2;
 
     public GameCanvas(Scene parentScene, GameScene gameScene){
         this.parentScene = parentScene;
         this.meshs = gameScene.getMeshs();
         this.currentCamera = gameScene.getCamera();
+        this.teamScore1 = gameScene.getTeamScore1();
+        this.teamScore2 = gameScene.getTeamScore2();
         init();
     }
 
@@ -48,12 +56,17 @@ public class GameCanvas extends Panel {
             parentScene.setScene(0);
         });
 
+        Text text = new Text("Score: " + teamScore1.getValue() + " / " + teamScore2.getValue());
+        text.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        text.setSize(100, 50);
+
         exitButton.setTextHorizontalAlignment(HorizontalAlignment.CENTER);
         exitButton.setTextVerticalAlignment(VerticalAlignment.MIDDLE);
         exitButton.setBackgroundColor(Color.WHITE);
         exitButton.setColor(Color.BLACK);
         exitButton.setFill(true);
 
+        add(text);
         add(exitButton);
     }
     

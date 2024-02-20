@@ -1,8 +1,5 @@
 package network;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import network.dao.DAOFactory;
 import network.dao.Server;
 import network.dao.ServerDAO;
@@ -16,19 +13,15 @@ public class NetworkManager {
         return singleton;
     }
 
-    private List<NetworkEntity> entities;
-
-    private NetworkManager(){
-        this.entities = new ArrayList<>();
-
-        entities.add(new NetworkEntity(2, "2 secondes !"));
-        entities.add(new NetworkEntity(5, "5 secondes !"));
-    }
+    private Server currentServer;
 
     public void update(){
-        for(NetworkEntity entity : entities){
-            entity.update();
-        }
+        SyncValue.refresh();
+    }
+
+    public void connect(Server server){
+        currentServer = server;
+        System.out.println("Vous êtes connecté au server: " + currentServer.getId());
     }
 
     public Server[] getListOfServers(){

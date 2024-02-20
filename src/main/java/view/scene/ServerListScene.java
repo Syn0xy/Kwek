@@ -1,12 +1,14 @@
 package view.scene;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import network.NetworkManager;
 import network.dao.Server;
 import view.gui.AxisAlignment;
 import view.gui.Button;
 import view.gui.GUIComponent;
+import view.gui.GUIContainer;
 import view.gui.HorizontalAlignment;
 import view.gui.Panel;
 import view.gui.Scene;
@@ -117,6 +119,7 @@ public class ServerListScene extends Panel {
             System.out.println("Il n'y a pas de serveur selectionné !");
             return;
         }
+        networkManager.connect(serverSelected);
         parentScene.setScene(3);
     }
     

@@ -13,6 +13,7 @@ import model.geometric.Transform;
 import model.geometric.Vector3;
 import model.input.Input;
 import network.NetworkManager;
+import network.SyncInteger;
 import view.util.Subject;
 
 public class GameScene extends Subject {
@@ -27,9 +28,15 @@ public class GameScene extends Subject {
 
     private Camera camera;
 
+    private SyncInteger teamScore1;
+
+    private SyncInteger teamScore2;
+
     public GameScene(){
         this.gameObjects = new ArrayList<>();
         this.networkManager = NetworkManager.getInstance();
+        this.teamScore1 = new SyncInteger(0);
+        this.teamScore2 = new SyncInteger(0);
         init();
     }
 
@@ -53,6 +60,14 @@ public class GameScene extends Subject {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public SyncInteger getTeamScore1() {
+        return teamScore1;
+    }
+
+    public SyncInteger getTeamScore2() {
+        return teamScore2;
     }
 
     private void init(){

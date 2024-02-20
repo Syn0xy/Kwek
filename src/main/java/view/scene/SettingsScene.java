@@ -2,6 +2,8 @@ package view.scene;
 
 import java.awt.Color;
 
+import network.NetworkManager;
+import network.dao.DAOFactory;
 import view.gui.Button;
 import view.gui.Panel;
 import view.gui.Scene;
@@ -21,6 +23,7 @@ public class SettingsScene extends Panel {
         Panel p = new Panel(500, 250);
         p.setColor(Color.LIGHT_GRAY);
         p.add(getNameText());
+        p.add(getRefreshTable());
         p.add(getBackButton());
         add(p);
     }
@@ -30,6 +33,15 @@ public class SettingsScene extends Panel {
         text.setColor(Color.BLACK);
         text.setSize(200, 50);
         return text;
+    }
+
+    private Button getRefreshTable(){
+        Button button = new Button("Refresh Tables", () -> {
+            DAOFactory.refreshDatabase();
+        });
+        button.setSize(200, 50);
+        button.setBackgroundColor(Color.BLACK);
+        return button;
     }
 
     private Button getBackButton(){

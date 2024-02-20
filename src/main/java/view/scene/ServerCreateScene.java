@@ -23,7 +23,10 @@ public class ServerCreateScene extends Panel {
 
     private void init(){
         TextField nameField = new TextField("Name");
-        TextField maxPlayersField = new TextField("Name");
+        TextField maxPlayersField = new TextField("Max players");
+
+        nameField.setText("Server");
+        maxPlayersField.setText("20");
 
         Panel buttons = new Panel(getWidth() / 2, getHeight() / 2);
         buttons.setAxisAlignment(AxisAlignment.X_AXIS);

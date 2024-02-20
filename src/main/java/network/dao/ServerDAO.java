@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ServerDAO extends DAO<Server> {
 
-    private static final String DATABASE_TALBE = "server";
+    private static final String DATABASE_TALBE = "servers";
 
     protected ServerDAO(Connection connection){
         super(connection);
